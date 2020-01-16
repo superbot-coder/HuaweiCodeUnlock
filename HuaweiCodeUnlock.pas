@@ -284,7 +284,7 @@ begin
      crc := crc and $FFFFFFFF;
   end;
   nsk := IntToStr(crc);
-  // nsk может быть 10 - 9 иногда 6 символов, но нужно скопировать 8 последних символов
+  // nsk РјРѕР¶РµС‚ Р±С‹С‚СЊ 10 - 9 РёРЅРѕРіРґР° 6 СЃРёРјРІРѕР»РѕРІ, РЅРѕ РЅСѓР¶РЅРѕ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ 8 РїРѕСЃР»РµРґРЅРёС… СЃРёРјРІРѕР»РѕРІ
   nsk := AnsiRightStr(nsk, 8);
   if Length(nsk) < 8 then nsk := StringOfChar('9', 8 - Length(nsk)) + nsk;
   if nsk[1] = '0' then nsk[1] := '9';
