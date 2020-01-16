@@ -549,23 +549,17 @@ begin
     r3 := r3 and $ff;  //?
     buf128[i] := r3;
     r8 := r8 + 1;      //?
-
   end;
 
 
   for i := 0 to 127 do byte_array[i] := AnsiChar(chr(buf128[i]));
 
-  // log('buf128[i] = '+s_temp);
-
   csum := 0;
   for i := 0 to 6 do
   begin
     csum := csum + (ord(IMEI[i+2]) or (ord(IMEI[i+1]) shl 8));
-    // log('i '+IntToStr(i) + ' csum = ' + IntToStr(csum) + ' '+IMEI[i+2]+ ' '+ imei[i+1]);
   end;
   csum := csum + ord(IMEI[15]);
-  // log('1. csum = '+IntToStr(csum));
-
 
   digest := GetMD5(AnsiString(byte_array));
   //log('digest = ' + DigestToHex(digest));
@@ -574,9 +568,7 @@ begin
   begin
     if (digest[i] >= ord('0')) and (digest[i] <= ord('9')) then
     begin
-      //log('i = '+IntToStr(i) + ' , ' + chr(digest[i]));
       SetLength(AResult, Length(AResult)+1);
-      //log('length = ' + IntToStr(Length(AResult)));
       AResult[Length(AResult)-1] := (digest[i]);
     end;
     if Length(AResult) > 7 then Break;
@@ -586,7 +578,6 @@ begin
   // Extract an integer from the hash
   offset := (csum and 3) shl 2;
   extra_num := IntToStr(int_from_bytestream(digest, offset));
-  //log('extra_num = ' + extra_num);
 
   // Cycle 1
   if Length(AResult) < 8 then
@@ -605,7 +596,6 @@ begin
       end;
     end;
 
-
     // AResult[0] := ord('0'); for test block
     // Replace any leading zeros
     if AResult[0] = ord('0') then
@@ -616,7 +606,7 @@ begin
       // AResult[0] := Ord(IntToStr((digest[offset] and 7) + 1)[1]);
       AResult[0] := (digest[offset] and 7) + 1 + $30; // +$30 convet to ascii
     end;
-
+	
    SetLength(Result, Length(AResult));
    move(Aresult[0], Result[1], Length(AResult));
 end;
@@ -715,7 +705,7 @@ begin
   s := s + 'algo_seletor(''867010022091624'', 2) ' + IntToStr(algo_selector('867010022091624', 2));
 
   ShowMessage(s);
-
+  
 end;
 
 end.
