@@ -623,8 +623,8 @@ begin
         2: x := x + ((ord(IMEI[i]) + i) * i);
       201: x := x + ((ord(IMEI[i]) + i) * ord(IMEI[i])) * (ord(IMEI[i]) + 313);
     end;
-    Result := x mod 7;
   end;
+  Result := x mod 7;
 end;
 
 {---------------------------- function CalcV2 ---------------------------------}
